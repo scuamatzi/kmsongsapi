@@ -2,6 +2,7 @@ from model import Song
 from pymongo import MongoClient
 import json
 import pprint
+import re
 
 file=open("pass.json", mode="r")
 data=json.load(file)
@@ -28,6 +29,18 @@ async def fetch_all_songs():
 
 async def create_song(song):
     item=song
-    #result = await collection.insert_one(item)
     result = collection.insert_one(item)
     return item
+
+async def fetch_song(song_name):
+    item=song_name
+    ## This way it finds the exact song_name text
+    result=collection.find_one({"song": re.compile('^'+ re.escape(item) + '$', re.IGNORECASE)})
+
+    ## This way it finds name songs that include song_name text
+    #result=collection.find_one({"song": re.compile( re.escape(item) , re.IGNORECASE)})
+
+    if result:
+        return Song(**result)
+    else:
+        return None
