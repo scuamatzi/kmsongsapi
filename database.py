@@ -25,3 +25,9 @@ async def fetch_all_songs():
     for item in db_result:
         songs.append(Song(**item))
     return songs
+
+async def create_song(song):
+    item=song
+    #result = await collection.insert_one(item)
+    result = collection.insert_one(item)
+    return item
