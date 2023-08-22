@@ -4,5 +4,5 @@ class Song(BaseModel):
     song: str
     country: str
     autor: str
-    rythm: str
+    rhythm: str
     section: str
