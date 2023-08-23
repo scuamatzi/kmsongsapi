@@ -30,9 +30,9 @@ async def all_songs():
 
 @app.post("/songs")
 async def addsong(song: Song):
-    result=await fetch_song(song.song)
+    result=await fetch_song(song.song_name)
     if result:
-        raise HTTPException(400, f"This song '{song.song}' is already in database" )
+        raise HTTPException(400, f"This song '{song.song_name}' is already in database" )
 
     response=await create_song(dict(song))
     if response:

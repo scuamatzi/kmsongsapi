@@ -35,7 +35,7 @@ async def create_song(song):
 async def fetch_song(song_name):
     item=song_name
     ## This way it finds the exact song_name text
-    result=collection.find_one({"song": re.compile('^'+ re.escape(item) + '$', re.IGNORECASE)})
+    result=collection.find_one({"song_name": re.compile('^'+ re.escape(item) + '$', re.IGNORECASE)})
 
     ## This way it finds name songs that include song_name text
     #result=collection.find_one({"song": re.compile( re.escape(item) , re.IGNORECASE)})
@@ -46,5 +46,5 @@ async def fetch_song(song_name):
         return None
 
 async def delete_song(song_name):
-    collection.delete_one({"song": re.compile('^'+re.escape(song_name)+'$', re.IGNORECASE) })
+    collection.delete_one({"song_name": re.compile('^'+re.escape(song_name)+'$', re.IGNORECASE) })
     return True
