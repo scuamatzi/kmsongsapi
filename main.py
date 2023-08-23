@@ -1,8 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from model import Song
 import pprint
+from mangum import Mangum
 
 app=FastAPI()
+
+handler=Mangum(app)
 
 from database import(
     fetch_all_songs,

@@ -12,8 +12,8 @@ uri=data["uri"]
 file.close
 
 try:
-    client=MongoClient("mongodb://km:kmpassword@192.168.50.30")
-    print("Database Connection Successful!")
+    client=MongoClient(f"mongodb+srv://{user}:{password}@{uri}")
+    #print("Database Connection Successful!")
 except:
     raise("Database connection failed!")
 
