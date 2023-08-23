@@ -44,3 +44,7 @@ async def fetch_song(song_name):
         return Song(**result)
     else:
         return None
+
+async def delete_song(song_name):
+    collection.delete_one({"song": re.compile('^'+re.escape(song_name)+'$', re.IGNORECASE) })
+    return True

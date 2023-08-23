@@ -7,7 +7,8 @@ app=FastAPI()
 from database import(
     fetch_all_songs,
     create_song,
-    fetch_song
+    fetch_song,
+    delete_song
 )
 
 # @app.get("/{song_name}")
@@ -37,3 +38,12 @@ async def addsong(song: Song):
     if response:
         return song
     raise HTTPException(400,"Failed to add song!")
+
+@app.delete("/songs")
+async def remove_song(song_name: str):
+    song_exist=await fetch_song(song_name)
+    if not song_exist:
+        raise HTTPException(400, f"The song '{song_name}' doesn't exist in database")
+    
+    result=await delete_song(song_name)
+    return f"{song_name} deleted."
