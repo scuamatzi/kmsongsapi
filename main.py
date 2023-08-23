@@ -8,7 +8,8 @@ from database import(
     fetch_all_songs,
     create_song,
     fetch_song,
-    delete_song
+    delete_song,
+    update_todo
 )
 
 # @app.get("/{song_name}")
@@ -38,6 +39,14 @@ async def addsong(song: Song):
     if response:
         return song
     raise HTTPException(400,"Failed to add song!")
+
+@app.put("/songs")
+async def put_song(song: Song):
+    response=await fetch_song(song.song_name)
+    if not response:
+        raise HTTPException(400, f"Song '{song.song_name} is not in database.'")
+    result=await update_todo(song)
+    return result
 
 @app.delete("/songs")
 async def remove_song(song_name: str):

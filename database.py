@@ -43,6 +43,19 @@ async def fetch_song(song_name):
     else:
         return None
 
+async def update_todo(song):
+    collection.update_one({"song_name": re.compile('^'+ re.escape(song.song_name) +'$', re.IGNORECASE)}, {
+        "$set":{
+            "song_name": song.song_name,
+            "country": song.country,
+            "author": song.author,
+            "rhythm": song.rhythm,
+            "section": song.section
+        }
+    })
+    response=collection.find_one({"song_name": re.compile('^'+ re.escape(song.song_name) +'$', re.IGNORECASE)})
+    return Song(**response)
+
 async def delete_song(song_name):
     collection.delete_one({"song_name": re.compile('^'+re.escape(song_name)+'$', re.IGNORECASE) })
     return True
