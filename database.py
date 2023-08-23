@@ -28,14 +28,12 @@ async def fetch_all_songs():
     return songs
 
 async def create_song(song):
-    item=song
-    result = collection.insert_one(item)
-    return item
+    result = collection.insert_one(song)
+    return song
 
 async def fetch_song(song_name):
-    item=song_name
     ## This way it finds the exact song_name text
-    result=collection.find_one({"song_name": re.compile('^'+ re.escape(item) + '$', re.IGNORECASE)})
+    result=collection.find_one({"song_name": re.compile('^'+ re.escape(song_name) + '$', re.IGNORECASE)})
 
     ## This way it finds name songs that include song_name text
     #result=collection.find_one({"song": re.compile( re.escape(item) , re.IGNORECASE)})
