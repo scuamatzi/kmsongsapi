@@ -13,6 +13,7 @@ file.close
 
 try:
     client=MongoClient(f"mongodb+srv://{user}:{password}@{uri}")
+    #client=MongoClient(f"mongodb://{user}:{password}@{uri}")
     #print("Database Connection Successful!")
 except:
     raise("Database connection failed!")
@@ -50,7 +51,10 @@ async def update_todo(song):
             "country": song.country,
             "author": song.author,
             "rhythm": song.rhythm,
-            "section": song.section
+            "section": song.section,
+            "letter": song.letter,
+            "chords": song.chords,
+            "track": song.track
         }
     })
     response=collection.find_one({"song_name": re.compile('^'+ re.escape(song.song_name) +'$', re.IGNORECASE)})

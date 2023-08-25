@@ -6,3 +6,6 @@ class Song(BaseModel):
     author: str
     rhythm: str
     section: str
+    letter: str
+    chords: str
+    track: str
